@@ -2,18 +2,21 @@ import subprocess
 import sys
 import os
 
+commandOptions = ["createcontract", "callcontract", "sendtocontract", "getaccountinfo", "listcontracts",
+                  "reservebalance", "getstakinginfo", "gethexaddress", "fromhexaddress"]
+
 def processCommand(command, arguments):
     # cli = os.getenv("HOME") + "/Desktop/qtum/src/qtum-cli"
     cli = "./qtum/src/qtum-cli"
-    commandOptions = ["createcontract", "callcontract", "sendtocontract", "getaccountinfo", "listcontracts",
-        "reservebalance", "getstakinginfo", "gethexaddress", "fromhexaddress"]
 
     if command in commandOptions:
-        commands = [cli, command]
+        _command = [cli, command]
         for x in arguments:
-            commands.append(x)
-        returnProcess = subprocess.run(commands, stdout=subprocess.PIPE)
-        return returnProcess.stdout
+            _command.append(x)
+
+        print("\n\n\n" + str(_command) + "\n\n\n")
+        returnProcess = subprocess.run(_command, stdout=subprocess.PIPE)
+        return str(returnProcess.stdout)
     raise Exception("ERROR: COMMAND NOT FOUND IN qtum-cli")
 
 
